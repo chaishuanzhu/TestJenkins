@@ -97,3 +97,44 @@ curl -F "file=@$EXPORT_IPA_PATH/$SCHEME_NAME.ipa" \
 
 echo " 上传 $SCHEME_NAME.ipa 包 到 pgyer 成功 🎉 🎉 🎉 "
 ```
+
+## 6.邮件通知
+
+系统管理员邮件地址: Jenkins管理员<870027381@qq.com>
+
+Manage Jenkins -> Configure System -> Extended E-mail Notification
+```
+SMTP server: smtp.qq.com 
+
+User Name: 邮箱账号
+Password: 开通SMTP时生成的密码
+SMTP port: 587
+
+Default Content Type: HTML
+
+Default Subject: 
+
+[Jenkins构建通知]$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!
+
+Default Content: 
+
+(邮件由Jenkins自动发出，请勿回复~)<br>
+项目名称：$PROJECT_NAME<br>
+构建编号：$BUILD_NUMBER<br>
+构建状态：$BUILD_STATUS<br>
+触发原因：${CAUSE}<br>
+构建地址：<a href="${BUILD_URL}">点击跳转</a><br>
+构建输出日志：<a href="${BUILD_URL}console">查看日志</a><br>
+下载地址：<a href="https://www.pgyer.com/iq6d">点击下载</a><br><br>
+二维码下载：<br>
+<img src="http://www.pgyer.com/app/qrcodeHistory/8a1ae155cd6ee27ec0a3f976efc463e6032850345303d0444dced027b158ba43" alt="扫码下载"><br>
+最近修改：<br>${CHANGES, showPaths=false, format="%a：\"%m\"<br>", pathFormat="\n\t- %p"}
+
+Default Triggers: Always
+```
+
+项目设置-> 构建后操作 -> Editable Email Notification
+```
+# 多个用空格隔开
+Project Recipient List: 870027381@qq.com 12123@qq.com
+```

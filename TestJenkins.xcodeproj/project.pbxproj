@@ -84,7 +84,6 @@
 				282E231620D79D214B40187D /* Pods-TestJenkins.debug.xcconfig */,
 				CF9F393741ADC71F49FA528D /* Pods-TestJenkins.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
