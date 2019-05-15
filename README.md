@@ -4,7 +4,10 @@
 https://www.jianshu.com/p/41ecb06ae95f.  
 https://juejin.im/post/5ad6beff6fb9a028c06b5889.  
 https://www.runoob.com/linux/linux-shell.html  
-https://github.com/chaishuanzhu/iOSShell.    
+https://github.com/chaishuanzhu/iOSShell.   
+https://huixisheng.github.io/jenkins-email/  
+https://liuhongjiang.github.io/hexotech/2015/12/04/jenkins-send-email-after-build/     
+https://www.w3cschool.cn/groovy/groovy_overview.html   
 
 ## 1.安装Jenkins
 ```
@@ -90,10 +93,15 @@ echo ">>>>>>>>>>>>>>>>>>>导出 $EXPORT_IPA_PATH/$SCHEME_NAME.ipa 包成功 🎉
 fi
 
 # 上传到蒲公英
-curl -F "file=@$EXPORT_IPA_PATH/$SCHEME_NAME.ipa" \
+RESULT=$(curl -F "file=@$EXPORT_IPA_PATH/$SCHEME_NAME.ipa" \
 -F "uKey=$PGYER_U_KEY" \
 -F "_api_key=$PGYER_API_KEY" \
-"http://www.pgyer.com/apiv1/app/upload"
+"http://www.pgyer.com/apiv1/app/upload")
+
+cat>pgyer.json<<EOF
+$RESULT
+EOF
+
 
 echo " 上传 $SCHEME_NAME.ipa 包 到 pgyer 成功 🎉 🎉 🎉 "
 ```
@@ -117,7 +125,7 @@ Default Subject:
 [Jenkins构建通知]$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!
 
 Default Content: 
-
+----------------------------------------------------------------------
 (邮件由Jenkins自动发出，请勿回复~)<br>
 项目名称：$PROJECT_NAME<br>
 构建编号：$BUILD_NUMBER<br>
@@ -125,11 +133,29 @@ Default Content:
 触发原因：${CAUSE}<br>
 构建地址：<a href="${BUILD_URL}">点击跳转</a><br>
 构建输出日志：<a href="${BUILD_URL}console">查看日志</a><br>
-下载地址：<a href="https://www.pgyer.com/iq6d">点击下载</a><br><br>
+下载地址：<a href="https://www.pgyer.com/app/downloadurl">点击下载</a><br><br>
 二维码下载：<br>
-<img src="http://www.pgyer.com/app/qrcodeHistory/8a1ae155cd6ee27ec0a3f976efc463e6032850345303d0444dced027b158ba43" alt="扫码下载"><br>
+<img src="https://www.pgyer.com/app/qrcodeurl" alt="扫码下载"><br>
 最近修改：<br>${CHANGES, showPaths=false, format="%a：\"%m\"<br>", pathFormat="\n\t- %p"}
-
+------------------------------------------------------------------------
+Default Pre-send Script:
+------------------------------------------------------------------------
+import groovy.json.JsonSlurper
+def var = build.getEnvVars()
+// 修改邮件内容
+// pgyresult {"code":0,"message":"","data":{"appKey":"1489b14b592e0bde8260bc46473565b7","userKey":"44a10b958afa3846268912d695d2a44e","appType":"1","appIsLastest":"1","appFileSize":"137535","appName":"TestJenkins","appVersion":"1.0","appVersionNo":"1","appBuildVersion":"34","appIdentifier":"com.xxx.TestJenkins","appIcon":"","appDescription":"","appUpdateDescription":"","appScreenshots":"","appShortcutUrl":"iq6d","appCreated":"2019-05-15 10:21:47","appUpdated":"2019-05-15 10:21:47","appQRCodeURL":"http:\/\/www.pgyer.com\/app\/qrcodeHistory\/2d90214b7dd150cdb53174d78efd3e7148cdd4617f7bf1950adc89eb1f6fcd7b"}}
+def pgyFile = var.get("WORKSPACE") + "/pgyer.json"
+def pgyresult = new File(pgyFile).text
+logger.print("pgyresult is: $pgyresult")
+def jsonSlurper = new JsonSlurper()
+def object = jsonSlurper.parseText(pgyresult)
+def emailContent = msg.getContent().getBodyPart(0).getContent()
+logger.print("emailContent is: $emailContent")
+emailContent = emailContent.replaceAll("https://www.pgyer.com/app/downloadurl", "https://www.pgyer.com/"+object.data.appShortcutUrl)
+emailContent = emailContent.replaceAll("https://www.pgyer.com/app/qrcodeurl", object.data. appQRCodeURL)
+logger.print("emailContent is: $emailContent")
+msg.setContent(emailContent, "text/html; charset=utf-8");
+--------------------------------------------------------------------------
 Default Triggers: Always
 ```
 

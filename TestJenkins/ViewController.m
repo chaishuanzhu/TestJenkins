@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "HLThread.h"
 
 @interface ViewController ()
 
@@ -16,8 +17,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self startHLThread];
     // Do any additional setup after loading the view.
 }
 
+- (void)startHLThread {
+    HLThread *thread = [[HLThread alloc]initWithTarget:self selector:@selector(hlThreadOperation) object:nil];
+    [thread start];
+}
+
+- (void)hlThreadOperation {
+
+    NSLog(@"%@----",[NSThread currentThread]);
+    [NSThread sleepForTimeInterval:3.0];
+    NSLog(@"%@-----",[NSThread currentThread]);
+}
 
 @end

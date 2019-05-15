@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7108B1BA228BBB4200EC39F7 /* HLThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 7108B1B9228BBB4200EC39F7 /* HLThread.m */; };
 		717212A72289787A00E43697 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 717212A62289787A00E43697 /* AppDelegate.m */; };
 		717212AA2289787A00E43697 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 717212A92289787A00E43697 /* ViewController.m */; };
 		717212AD2289787A00E43697 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 717212AB2289787A00E43697 /* Main.storyboard */; };
@@ -18,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		282E231620D79D214B40187D /* Pods-TestJenkins.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestJenkins.debug.xcconfig"; path = "Target Support Files/Pods-TestJenkins/Pods-TestJenkins.debug.xcconfig"; sourceTree = "<group>"; };
+		7108B1B8228BBB4200EC39F7 /* HLThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HLThread.h; sourceTree = "<group>"; };
+		7108B1B9228BBB4200EC39F7 /* HLThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HLThread.m; sourceTree = "<group>"; };
 		717212A22289787A00E43697 /* TestJenkins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestJenkins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		717212A52289787A00E43697 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		717212A62289787A00E43697 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -69,6 +72,8 @@
 				717212A62289787A00E43697 /* AppDelegate.m */,
 				717212A82289787A00E43697 /* ViewController.h */,
 				717212A92289787A00E43697 /* ViewController.m */,
+				7108B1B8228BBB4200EC39F7 /* HLThread.h */,
+				7108B1B9228BBB4200EC39F7 /* HLThread.m */,
 				717212AB2289787A00E43697 /* Main.storyboard */,
 				717212AE2289787B00E43697 /* Assets.xcassets */,
 				717212B02289787B00E43697 /* LaunchScreen.storyboard */,
@@ -192,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				717212AA2289787A00E43697 /* ViewController.m in Sources */,
+				7108B1BA228BBB4200EC39F7 /* HLThread.m in Sources */,
 				717212B52289787B00E43697 /* main.m in Sources */,
 				717212A72289787A00E43697 /* AppDelegate.m in Sources */,
 			);
