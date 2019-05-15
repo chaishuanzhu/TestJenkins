@@ -8,6 +8,7 @@ https://github.com/chaishuanzhu/iOSShell.
 https://huixisheng.github.io/jenkins-email/  
 https://liuhongjiang.github.io/hexotech/2015/12/04/jenkins-send-email-after-build/     
 https://www.w3cschool.cn/groovy/groovy_overview.html   
+https://www.ifeegoo.com/using-jenkins-to-set-up-the-continuous-integration-environment-of-android-and-ios-on-macos.html   
 
 ## 1.安装Jenkins
 ```
