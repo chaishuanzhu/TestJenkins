@@ -37,7 +37,8 @@ echo "执行pod install"
 pod install
 echo "pod 执行完毕"
 echo "开始下载依赖"
-# wget -p $WORKSPACE/Frameworks http://127.0.0.1/xxxx.framework
+# wget http://127.0.0.1/xxxx.a
+# mv xxxx.a TestJenkins/Lib
 ```
 
 ```
