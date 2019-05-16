@@ -9,6 +9,7 @@ https://huixisheng.github.io/jenkins-email/
 https://liuhongjiang.github.io/hexotech/2015/12/04/jenkins-send-email-after-build/     
 https://www.w3cschool.cn/groovy/groovy_overview.html   
 https://www.ifeegoo.com/using-jenkins-to-set-up-the-continuous-integration-environment-of-android-and-ios-on-macos.html   
+https://blog.51cto.com/zero01/2074341    
 
 ## 1.安装Jenkins
 ```
@@ -35,7 +36,8 @@ brew services stop jenkins
 ## 5.sh脚本
 ```
 echo "执行pod install"
-pod install
+export LANG=en_US.UTF-8
+pod install --verbose --no-repo-update
 echo "pod 执行完毕"
 echo "开始下载依赖"
 # wget http://127.0.0.1/xxxx.a
@@ -166,3 +168,6 @@ Default Triggers: Always
 # 多个用空格隔开
 Project Recipient List: 870027381@qq.com 12123@qq.com
 ```
+
+## Next 静态分析、自动化测试
+https://www.jianshu.com/p/d663bec34a21    
