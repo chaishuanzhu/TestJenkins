@@ -11,6 +11,12 @@ https://www.w3cschool.cn/groovy/groovy_overview.html
 https://www.ifeegoo.com/using-jenkins-to-set-up-the-continuous-integration-environment-of-android-and-ios-on-macos.html   
 https://blog.51cto.com/zero01/2074341    
 
+## 需要安装
+```
+sudo gen install cocoapods
+sudo gem install xcpretty
+```
+
 ## 1.安装Jenkins
 ```
 brew install jenkins
@@ -74,9 +80,9 @@ echo ">>>>>>>>>>>>>>>>>>>开始构建项目，当前选择构建类型：" + $BU
 echo ">>>>>>>>>>>>>>>>>>>当前 workspace " +$WORKSPACE
 if [ $BUILD_TYPE == "Release"]; 
 then 
-	xcodebuild archive -workspace $WORKSPACE/$SCHEME_NAME.xcworkspace -archivePath $EXPORT_ARCHIVE_PATH -sdk iphoneos -scheme $SCHEME_NAME -configuration Release
+	xcodebuild archive -workspace $WORKSPACE/$SCHEME_NAME.xcworkspace -archivePath $EXPORT_ARCHIVE_PATH -sdk iphoneos -scheme $SCHEME_NAME -configuration Release | xcpretty && exit ${PIPESTATUS[0]}
 else 
-	xcodebuild archive -workspace $WORKSPACE/$SCHEME_NAME.xcworkspace -archivePath $EXPORT_ARCHIVE_PATH -sdk iphoneos -scheme $SCHEME_NAME -configuration Debug
+	xcodebuild archive -workspace $WORKSPACE/$SCHEME_NAME.xcworkspace -archivePath $EXPORT_ARCHIVE_PATH -sdk iphoneos -scheme $SCHEME_NAME -configuration Debug | xcpretty && exit ${PIPESTATUS[0]}
 fi
 
 # 检查是否构建成功
@@ -89,7 +95,7 @@ exit 1
 fi
 
 echo ">>>>>>>>>>>>>>>>>>>开始导出ipa文件 "
-xcodebuild -exportArchive -archivePath $EXPORT_ARCHIVE_PATH -exportPath $EXPORT_IPA_PATH -exportOptionsPlist $WORKSPACE/build/AdHocExportOptionsPlist.plist -allowProvisioningUpdates
+xcodebuild -exportArchive -archivePath $EXPORT_ARCHIVE_PATH -exportPath $EXPORT_IPA_PATH -exportOptionsPlist $WORKSPACE/build/AdHocExportOptionsPlist.plist -allowProvisioningUpdates | xcpretty && exit ${PIPESTATUS[0]}
 
 # 检查文件是否存在
 if test -f "$EXPORT_IPA_PATH/$SCHEME_NAME.ipa" ; then
